@@ -1,17 +1,17 @@
-Please see [this repo](https://github.com/laravel-notification-channels/channels) for insturctions on how to submit a channel proposal.
+Please see [this repo](https://github.com/laravel-notification-channels/channels) for instructions on how to submit a channel proposal.
 
-# A Boilerplate repo for contributions
+# MS Teams Notifications Channel for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://packagist.org/packages/talvbansal/laravel-ms-teams-notification-channel)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/:package_name)
+[![Build Status](https://img.shields.io/travis/talvbansal/laravel-ms-teams-notification-channel/master.svg?style=flat-square)](https://travis-ci.org/talvbansal/laravel-ms-teams-notification-channel)
 [![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
+[![Quality Score](https://img.shields.io/scrutinizer/g/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://scrutinizer-ci.com/g/talvbansal/laravel-ms-teams-notification-channel)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/talvbansal/laravel-ms-teams-notification-channel/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/talvbansal/laravel-ms-teams-notification-channel/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://packagist.org/packages/talvbansal/laravel-ms-teams-notification-channel)
 
-This package makes it easy to send notifications using [:service_name](link to service) with Laravel 5.5+ and 6.0
+This package makes it easy to send notifications using [MS Teams](https://docs.microsoft.com/en-gb/microsoftteams/platform/task-modules-and-cards/cards/cards-reference#office-365-connector-card) with Laravel 5.5+ and 6.0
 
 **Note:** Replace ```:channel_namespace``` ```:service_name``` ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:package_name``` ```:package_description``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
 **Tip:** Use "Find in Path/Files" in your code editor to find these keywords within the package directory and replace all occurences with your specified term.
@@ -23,7 +23,7 @@ This is where your description should go. Add a little code example so build can
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the :service_name service](#setting-up-the-:service_name-service)
+	- [Setting up the Connector](#setting-up-the-connector)
 - [Usage](#usage)
 	- [Available Message methods](#available-message-methods)
 - [Changelog](#changelog)
@@ -36,19 +36,100 @@ This is where your description should go. Add a little code example so build can
 
 ## Installation
 
-Please also include the steps for any third-party service setup that's required for this package.
+You can install the package via composer:
+```bash
+composer require talvbansal/laravel-ms-teams-notification-channel
+```
 
-### Setting up the :service_name service
+### Setting up the Connector
 
-Optionally include a few steps how users can set up the service.
+Please refer to [this article](https://docs.microsoft.com/en-gb/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook#add-an-incoming-webhook-to-a-teams-channel)  for setting up and adding a webhook connector to your MS Team's channel.
+
+Then, configure your webhook url:
+
+```php
+// config/services.php
+...
+'ms-teams' => [
+    'webhook_url' => env('MS_TEAMS_WEBHOOK_URL', 'WEBHOOK URL HERE')
+],
+...
+```
+
+You can change this to be whatever you like so if you have multiple teams you want to send notifications to you could do the following:
+
+```php
+// config/services.php
+...
+'ms-teams' => [
+    'developers_webhook_url' => env('MS_TEAMS_DEVELOPERS_WEBHOOK_URL'),
+    'helpdesk_webhook_url' => env('MS_TEAMS_HELPDESK_WEBHOOK_URL'),
+],
+...
+```
+
+As long as you remember to route the notifications to the correct team.
 
 ## Usage
 
-Some code examples, make it clear how to use the package
+You can now use the channel in your via() method inside the Notification class.
+
+```php
+
+use NotificationChannels\MsTeams\MsTeamsChannel;
+use NotificationChannels\MsTeams\MsTeamsMessage;
+use Illuminate\Notifications\Notification;
+
+class InvoicePaid extends Notification
+{
+    public function via($notifiable)
+    {
+        return [MsTeamsChannel::class];
+    }
+
+    public function toMsTeams($notifiable)
+    {
+        $url = url('/invoice/' . $this->invoice->id);
+
+        return MsTeamsMessage::create()
+            // Optional recipient user id.
+            ->to(config('services.ms-teams.webhook_url'))
+            // Markdown supported.
+            ->content("Hello there!\nYour invoice has been *PAID*")
+            // (Optional) Inline Buttons
+            ->button('View Invoice', $url)
+            ->button('Download Invoice', $url);
+    }
+}
+
+```
+
+### Text Notification
+
+### Routing the message
+You can either send the notification by providing with the webhook url to the recipient to the to($url) method like shown in the above example or add a routeNotificationForMsTeams() method in your notifiable model:
+
+```php
+...
+/**
+ * Route notifications for the MS Teams channel.
+ *
+ * @return int
+ */
+public function routeNotificationForMsTeams()
+{
+    return config('services.ms-teams.webhook_url');
+}
+...
+```
 
 ### Available Message methods
 
-A list of all available options
+- `to($webhookUrl): (string)` Recipient's chat id.
+- `title(''): (string)` Notification title, does not support markdown.
+- `content(''): (string)` Notification message, supports markdown..
+- `button($text, $url): (string, string)` Adds an inline "Call to Action" button. You can add as many as you want.
+
 
 ## Changelog
 
@@ -70,7 +151,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Talv Bansal](https://github.com/talvbansal)
 - [All Contributors](../../contributors)
 
 ## License

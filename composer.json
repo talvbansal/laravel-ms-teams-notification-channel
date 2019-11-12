@@ -1,18 +1,26 @@
 {
-    "name": "laravel-notification-channels/:package_name",
-    "description": ":package_description",
-    "homepage": "https://github.com/laravel-notification-channels/:package_name",
+    "name": "talvbansal/laravel-ms-teams-notification-channel",
+    "description": "Basic MS Teams Notifications Channel for Laravel",
+    "homepage": "https://github.com/talvbansal/laravel-ms-teams-notification-channel",
+    "keywords": [
+        "ms teams notification",
+        "laravel",
+        "ms teams",
+        "notification",
+        "ms teams notifications channel"
+    ],
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Talv Bansal",
+            "email": "talvbansal@outlook.com",
+            "homepage": "https://www.talvbansal.me/",
             "role": "Developer"
         }
     ],
     "require": {
         "php": ">=7.2",
+        "guzzlehttp/guzzle": "^6.2",
         "illuminate/notifications": "~5.5 || ~6.0",
         "illuminate/support": "~5.5 || ~6.0"
     },
@@ -22,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\": "src"
+            "NotificationChannels\\MsTeams\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\Test\\": "tests"
+            "NotificationChannels\\MsTeams\\Test\\": "tests"
         }
     },
     "scripts": {
