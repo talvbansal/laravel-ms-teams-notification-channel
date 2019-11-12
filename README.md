@@ -67,6 +67,8 @@ As long as you remember to route the notifications to the correct team.
 
 You can now use the channel in your via() method inside the Notification class.
 
+
+### Notifications
 ```php
 
 use NotificationChannels\MsTeams\MsTeamsChannel;
@@ -91,13 +93,14 @@ class InvoicePaid extends Notification
             ->content("Hello there!\nYour invoice has been *PAID*")
             // (Optional) Inline Buttons
             ->button('View Invoice', $url)
-            ->button('Download Invoice', $url);
+            ->button('Download Invoice', $url)
+            // (Optional) Supporting images
+            ->image('https://source.unsplash.com/random/800x800?animals,nature&q='.now())
+            ->image('https://source.unsplash.com/random/900x600?building,car&q='.now());
     }
 }
 
 ```
-
-### Text Notification
 
 ### Routing the message
 You can either send the notification by providing with the webhook url to the recipient to the to($url) method like shown in the above example or add a routeNotificationForMsTeams() method in your notifiable model:
@@ -122,6 +125,7 @@ public function routeNotificationForMsTeams()
 - `title(''): (string)` Notification title, does not support markdown.
 - `content(''): (string)` Notification message, supports markdown..
 - `button($text, $url): (string, string)` Adds an inline "Call to Action" button. You can add as many as you want.
+- `image($url): (string, string)` Adds an inline image from the given url. You can add as many as you want.
 
 
 ## Changelog
