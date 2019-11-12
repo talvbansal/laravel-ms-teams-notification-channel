@@ -2,10 +2,8 @@
 
 namespace NotificationChannels\MsTeams;
 
-
 class MsTeamsMessage
 {
-
     private $payload = [];
 
     public function __construct($content = '')
@@ -30,7 +28,8 @@ class MsTeamsMessage
         return empty($this->payload['url']);
     }
 
-    public function title($title) : self{
+    public function title($title) : self
+    {
         $this->payload['title'] = $title;
 
         return $this;
