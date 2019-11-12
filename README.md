@@ -5,7 +5,7 @@ Please see [this repo](https://github.com/laravel-notification-channels/channels
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://packagist.org/packages/talvbansal/laravel-ms-teams-notification-channel)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/talvbansal/laravel-ms-teams-notification-channel/master.svg?style=flat-square)](https://travis-ci.org/talvbansal/laravel-ms-teams-notification-channel)
-[![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
+[![StyleCI](https://styleci.io/repos/221256039/shield)](https://styleci.io/repos/221256039)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://scrutinizer-ci.com/g/talvbansal/laravel-ms-teams-notification-channel)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/talvbansal/laravel-ms-teams-notification-channel/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/talvbansal/laravel-ms-teams-notification-channel/?branch=master)
