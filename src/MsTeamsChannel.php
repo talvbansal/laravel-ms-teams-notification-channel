@@ -2,11 +2,11 @@
 
 namespace NotificationChannels\MsTeams;
 
-use NotificationChannels\MsTeams\Exceptions\CouldNotSendNotification;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
+use NotificationChannels\MsTeams\Exceptions\CouldNotSendNotification;
 
 class MsTeamsChannel
 {
@@ -32,7 +32,7 @@ class MsTeamsChannel
         $message = $notification->toMsTeams($notifiable);
 
         if ($message->toUnknown()) {
-            if (!$to = $notifiable->routeNotificationFor('msteams')) {
+            if (! $to = $notifiable->routeNotificationFor('msteams')) {
                 throw CouldNotSendNotification::connectorWebHookUrlMissing();
             }
 
@@ -53,20 +53,20 @@ class MsTeamsChannel
         $payload['sections'] = [];
 
         $payload['potentialAction'] = collect(Arr::get($data, 'buttons', []))
-            ->map(function($button){
-                return (object)[
-                    "@context" => "http://schema.org",
-                    "@type" => "ViewAction",
-                    "name" => $button['text'],
-                    "target" => [
-                        $button['url']
-                    ]
+            ->map(function ($button) {
+                return (object) [
+                    '@context' => 'http://schema.org',
+                    '@type' => 'ViewAction',
+                    'name' => $button['text'],
+                    'target' => [
+                        $button['url'],
+                    ],
                 ];
             });
 
         $payload['sections'][]['images'] = collect(Arr::get($data, 'images', []))
-            ->map(function($image){
-                return (object)[
+            ->map(function ($image) {
+                return (object) [
                     'image' => $image,
                 ];
             });
@@ -75,7 +75,7 @@ class MsTeamsChannel
             $response = $this->client->post($data['url'], [
                 'json' => $payload,
             ]);
-        }  catch (ClientException $exception) {
+        } catch (ClientException $exception) {
             throw CouldNotSendNotification::msTeamsRespondedWithAnError($exception);
         } catch (\Exception $exception) {
             throw CouldNotSendNotification::couldNotCommunicateWithMsTeams($exception);
@@ -84,4 +84,3 @@ class MsTeamsChannel
         return $response;
     }
 }
-
