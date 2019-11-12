@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\:channel_namespace\Test;
+namespace NotificationChannels\MsTeams\Test;
 
 use PHPUnit\Framework\TestCase;
 
