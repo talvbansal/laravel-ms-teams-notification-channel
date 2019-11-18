@@ -1,5 +1,3 @@
-Please see [this repo](https://github.com/laravel-notification-channels/channels) for instructions on how to submit a channel proposal.
-
 # MS Teams Notifications Channel for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://packagist.org/packages/talvbansal/laravel-ms-teams-notification-channel)
@@ -11,7 +9,7 @@ Please see [this repo](https://github.com/laravel-notification-channels/channels
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/talvbansal/laravel-ms-teams-notification-channel/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/talvbansal/laravel-ms-teams-notification-channel/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://packagist.org/packages/talvbansal/laravel-ms-teams-notification-channel)
 
-This package makes it easy to send notifications using [MS Teams](https://docs.microsoft.com/en-gb/microsoftteams/platform/task-modules-and-cards/cards/cards-reference#office-365-connector-card) with Laravel 5.5+ and 6.0
+This package makes it easy to send notifications using [MS Teams](https://docs.microsoft.com/en-gb/microsoftteams/platform/task-modules-and-cards/cards/cards-reference#office-365-connector-card) with Laravel 5.5+ and 6.0.
 
 ## Contents
 
@@ -127,6 +125,7 @@ public function routeNotificationForMsTeams()
 - `button($text, $url): (string, string)` Adds an inline "Call to Action" button. You can add as many as you want.
 - `image($url): (string, string)` Adds an inline image from the given url. You can add as many as you want.
 
+More examples and information about this package can be found [here.](https://www.talvbansal.me/blog/send-notifications-to-ms-teams-with-laravel/)
 
 ## Changelog
 
@@ -154,3 +153,5 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+Please see [this repo](https://github.com/laravel-notification-channels/channels) for instructions on how to submit a channel proposal.
