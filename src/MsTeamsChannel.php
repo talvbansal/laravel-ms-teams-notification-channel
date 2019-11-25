@@ -46,10 +46,10 @@ class MsTeamsChannel
         }
 
         $code = collect(Arr::get($data, 'code', []))
-            ->map(function ($code){
+            ->map(function ($code) {
                 return [
-                    "name"  => "Code",
-                    "value" => "<pre>$code</pre>"
+                    'name'  => 'Code',
+                    'value' => "<pre>$code</pre>",
                 ];
             });
 
@@ -73,19 +73,19 @@ class MsTeamsChannel
             });
 
         $payload = [
-            "@type"      => "MessageCard",
-            "@context"   => "http://schema.org/extensions",
-            "summary" =>  Arr::get($data, 'title', 'Incoming notification'),
-            "themeColor" =>  $this->getNotificationType(Arr::get($data, 'type', 'success')),
-            "title"      => Arr::get($data, 'title'),
+            '@type'      => 'MessageCard',
+            '@context'   => 'http://schema.org/extensions',
+            'summary' =>  Arr::get($data, 'title', 'Incoming notification'),
+            'themeColor' =>  $this->getNotificationType(Arr::get($data, 'type', 'success')),
+            'title'      => Arr::get($data, 'title'),
 
-            "sections"   => [
+            'sections'   => [
                 [
-                    "activitySubtitle"  => sprintf("%s : (%s)",config('app.url'), config('app.env')),
-                    "text" => Arr::get($data, 'text'),
-                    "facts" => $code,
-                    "images" => $images,
-                ]
+                    'activitySubtitle'  => sprintf('%s : (%s)', config('app.url'), config('app.env')),
+                    'text' => Arr::get($data, 'text'),
+                    'facts' => $code,
+                    'images' => $images,
+                ],
             ],
 
             'potentialAction' => $potentialActions,
@@ -112,7 +112,7 @@ class MsTeamsChannel
      */
     private function getNotificationType($type = 'info') : string
     {
-        switch($type){
+        switch ($type) {
             case 'error':
                 return '#D8000C';
                 break;
