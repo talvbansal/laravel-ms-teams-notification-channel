@@ -45,14 +45,15 @@ class MsTeamsChannel
             return;
         }
 
-        $payload = [];
-        $payload['title'] = Arr::get($data, 'title');
-        $payload['text'] = Arr::get($data, 'text');
+        $code = collect(Arr::get($data, 'code', []))
+            ->map(function ($code){
+                return [
+                    "name"  => "Code",
+                    "value" => "<pre>$code</pre>"
+                ];
+            });
 
-        $payload['potentialAction'] = [];
-        $payload['sections'] = [];
-
-        $payload['potentialAction'] = collect(Arr::get($data, 'buttons', []))
+        $potentialActions = collect(Arr::get($data, 'buttons', []))
             ->map(function ($button) {
                 return (object) [
                     '@context' => 'http://schema.org',
@@ -64,12 +65,31 @@ class MsTeamsChannel
                 ];
             });
 
-        $payload['sections'][]['images'] = collect(Arr::get($data, 'images', []))
+        $images = collect(Arr::get($data, 'images', []))
             ->map(function ($image) {
                 return (object) [
                     'image' => $image,
                 ];
             });
+
+        $payload = [
+            "@type"      => "MessageCard",
+            "@context"   => "http://schema.org/extensions",
+            "summary" =>  Arr::get($data, 'title', 'Incoming notification'),
+            "themeColor" =>  $this->getNotificationType(Arr::get($data, 'type', 'success')),
+            "title"      => Arr::get($data, 'title'),
+
+            "sections"   => [
+                [
+                    "activitySubtitle"  => sprintf("%s : (%s)",config('app.url'), config('app.env')),
+                    "text" => Arr::get($data, 'text'),
+                    "facts" => $code,
+                    "images" => $images,
+                ]
+            ],
+
+            'potentialAction' => $potentialActions,
+        ];
 
         try {
             $response = $this->client->post($data['url'], [
@@ -82,5 +102,30 @@ class MsTeamsChannel
         }
 
         return $response;
+    }
+
+    /**
+     * Generate a colour code use for the card accent colour...
+     *
+     * @param string $type
+     * @return string
+     */
+    private function getNotificationType($type = 'info') : string
+    {
+        switch($type){
+            case 'error':
+                return '#D8000C';
+                break;
+            default:
+            case 'info':
+                return '#31708f';
+                break;
+            case 'success':
+                return '#4F8A10';
+                break;
+            case 'warning':
+                return '#FEEFB3';
+                break;
+        }
     }
 }

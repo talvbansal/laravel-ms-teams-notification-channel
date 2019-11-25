@@ -122,8 +122,10 @@ public function routeNotificationForMsTeams()
 - `to($webhookUrl): (string)` Recipient's chat id.
 - `title(''): (string)` Notification title, does not support markdown.
 - `content(''): (string)` Notification message, supports markdown..
-- `button($text, $url): (string, string)` Adds an inline "Call to Action" button. You can add as many as you want.
-- `image($url): (string, string)` Adds an inline image from the given url. You can add as many as you want.
+- `button($text, $url): (string)` Adds an inline "Call to Action" button. You can add as many as you want.
+- `image($url): (string)` Adds an inline image from the given url. You can add as many as you want.
+- `code($code): (string)` Adds a code fragment to the message. You can add as many as you want.
+- `type($type): (string)` Change the accent of the card sent. You can choose between 'info', 'warning', 'error', 'success'
 
 More examples and information about this package can be found [here.](https://www.talvbansal.me/blog/send-notifications-to-ms-teams-with-laravel/)
 

@@ -42,6 +42,20 @@ class MsTeamsMessage
         return $this;
     }
 
+    public function code($content) : self
+    {
+        $this->payload['code'][] = $content;
+
+        return $this;
+    }
+
+    public function type($type) : self
+    {
+        $this->payload['type'] = $type;
+
+        return $this;
+    }
+
     public function button($text, $url): self
     {
         $this->payload['buttons'][] = compact('text', 'url');
