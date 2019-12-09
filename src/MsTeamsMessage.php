@@ -37,7 +37,7 @@ class MsTeamsMessage
 
     public function content($content) : self
     {
-        if(!empty($content)) {
+        if (! empty($content)) {
             $this->payload['text'] = $content;
         }
 
@@ -46,7 +46,7 @@ class MsTeamsMessage
 
     public function code($content) : self
     {
-        if(!empty($content)) {
+        if (! empty($content)) {
             $this->payload['code'][] = $content;
         }
 
@@ -69,7 +69,7 @@ class MsTeamsMessage
 
     public function image($image): self
     {
-        if(!empty($image)){
+        if (! empty($image)) {
             $this->payload['images'][] = $image;
         }
 
