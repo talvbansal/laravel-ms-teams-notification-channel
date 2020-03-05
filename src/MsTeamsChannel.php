@@ -110,7 +110,7 @@ class MsTeamsChannel
      * @param string $type
      * @return string
      */
-    private function getNotificationType($type = 'info') : string
+    private function getNotificationType($type = 'info'): string
     {
         switch ($type) {
             case 'error':
