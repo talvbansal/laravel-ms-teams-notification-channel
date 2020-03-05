@@ -23,19 +23,19 @@ class MsTeamsMessage
         return $this;
     }
 
-    public function toUnknown() :bool
+    public function toUnknown(): bool
     {
         return empty($this->payload['url']);
     }
 
-    public function title($title) : self
+    public function title($title): self
     {
         $this->payload['title'] = $title;
 
         return $this;
     }
 
-    public function content($content) : self
+    public function content($content): self
     {
         if (! empty($content)) {
             $this->payload['text'] = $content;
@@ -44,7 +44,7 @@ class MsTeamsMessage
         return $this;
     }
 
-    public function code($content) : self
+    public function code($content): self
     {
         if (! empty($content)) {
             $this->payload['code'][] = $content;
@@ -53,7 +53,7 @@ class MsTeamsMessage
         return $this;
     }
 
-    public function type($type) : self
+    public function type($type): self
     {
         $this->payload['type'] = $type;
 
