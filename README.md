@@ -9,7 +9,7 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/talvbansal/laravel-ms-teams-notification-channel/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/talvbansal/laravel-ms-teams-notification-channel/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/talvbansal/laravel-ms-teams-notification-channel.svg?style=flat-square)](https://packagist.org/packages/talvbansal/laravel-ms-teams-notification-channel)
 
-This package makes it easy to send notifications using [MS Teams](https://docs.microsoft.com/en-gb/microsoftteams/platform/task-modules-and-cards/cards/cards-reference#office-365-connector-card) with Laravel 5.5+ and 6.0.
+This package makes it easy to send notifications using [MS Teams](https://docs.microsoft.com/en-gb/microsoftteams/platform/task-modules-and-cards/cards/cards-reference#office-365-connector-card) with Laravel 5.5+ - 8.0.
 
 ## Contents
 
@@ -128,6 +128,9 @@ public function routeNotificationForMsTeams()
 - `type($type): (string)` Change the accent of the card sent. You can choose between 'info', 'warning', 'error', 'success'
 
 More examples and information about this package can be found [here.](https://www.talvbansal.me/blog/send-notifications-to-ms-teams-with-laravel/)
+
+# Throttling notifications
+If you find you're receiving too many of a given notification you can use [this package](https://github.com/talvbansal/laravel-throttled-failed-jobs) to help limit the number of notifications you get during a period where something has gone wrong.
 
 ## Changelog
 
