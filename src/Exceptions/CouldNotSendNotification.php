@@ -9,8 +9,7 @@ class CouldNotSendNotification extends \Exception
     /**
      * Thrown when there's a bad request and an error is responded.
      *
-     * @param ClientException $exception
-     *
+     * @param  ClientException  $exception
      * @return static
      */
     public static function msTeamsRespondedWithAnError(ClientException $exception)
