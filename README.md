@@ -14,9 +14,9 @@ This package makes it easy to send notifications using [MS Teams](https://docs.m
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the Connector](#setting-up-the-connector)
+- [Setting up the Connector](#setting-up-the-connector)
 - [Usage](#usage)
-	- [Available Message methods](#available-message-methods)
+- [Available Message methods](#available-message-methods)
 - [Changelog](#changelog)
 - [Testing](#testing)
 - [Security](#security)

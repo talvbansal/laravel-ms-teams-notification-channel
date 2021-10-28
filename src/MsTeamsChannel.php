@@ -22,8 +22,9 @@ class MsTeamsChannel
 
     /**
      * @param $notifiable
-     * @param Notification $notification
+     * @param  Notification  $notification
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
@@ -107,7 +108,7 @@ class MsTeamsChannel
     /**
      * Generate a colour code use for the card accent colour...
      *
-     * @param string $type
+     * @param  string  $type
      * @return string
      */
     private function getNotificationType($type = 'info'): string
